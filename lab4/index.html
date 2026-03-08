@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My To-Do List</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- Decorative rings -->
+  <div class="rings">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+
+  <div class="notebook">
+
+    <!-- Header -->
+    <header class="nb-header">
+      <div class="header-deco">✦</div>
+      <h1 class="nb-title">My To‑Do List</h1>
+      <p class="nb-subtitle">Stay on track, one task at a time.</p>
+      <div class="stats">
+        <span id="stat-total">0 tasks</span>
+        <span class="dot">·</span>
+        <span id="stat-done">0 done</span>
+      </div>
+    </header>
+
+    <!-- Input area -->
+    <div class="input-area">
+      <div class="input-wrapper">
+        <span class="input-icon">✏️</span>
+        <input
+          type="text"
+          id="task-input"
+          placeholder="What needs to be done?"
+          maxlength="120"
+          autocomplete="off"
+        />
+      </div>
+      <button id="add-btn">Add Task</button>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="active">Active</button>
+      <button class="filter-btn" data-filter="done">Done</button>
+    </div>
+
+    <!-- Task list -->
+    <ul id="task-list"></ul>
+
+    <!-- Empty state -->
+    <div class="empty-state" id="empty-state">
+      <span class="empty-icon">📋</span>
+      <p>No tasks yet — add one above!</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="nb-footer">
+      <button id="clear-done-btn">Clear completed</button>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

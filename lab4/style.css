@@ -1,0 +1,372 @@
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── VARIABLES ── */
+:root {
+  --cream:      #fdf6e3;
+  --cream-dark: #f5eacc;
+  --paper:      #fffef9;
+  --ink:        #2c2416;
+  --ink-light:  #7a6a50;
+  --rule:       rgba(180,155,100,0.25);
+  --accent:     #d4541a;
+  --accent-lt:  #f5ddd0;
+  --green:      #3a7d44;
+  --green-lt:   #d4edda;
+  --shadow:     rgba(80,50,10,0.15);
+  --ring:       #c0a060;
+}
+
+/* ── BODY ── */
+html, body {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 20px 80px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 31px,
+      rgba(180,155,100,0.12) 31px,
+      rgba(180,155,100,0.12) 32px
+    ),
+    linear-gradient(135deg, #e8dcc0 0%, #d4c49a 100%);
+  font-family: 'Caveat', cursive;
+}
+
+/* ── SPIRAL RINGS ── */
+.rings {
+  position: fixed;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: min(560px, 96vw);
+  display: flex;
+  justify-content: space-around;
+  padding: 0 60px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.ring {
+  width: 36px;
+  height: 56px;
+  border: 5px solid var(--ring);
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  background: linear-gradient(180deg, #d4aa60, #a07830);
+  box-shadow: inset 0 2px 4px rgba(255,220,120,0.4), 0 2px 6px rgba(0,0,0,0.3);
+  position: relative;
+  top: -18px;
+}
+
+/* ── NOTEBOOK CARD ── */
+.notebook {
+  width: min(560px, 96vw);
+  background: var(--paper);
+  border-radius: 4px 4px 6px 6px;
+  box-shadow:
+    0 2px 0 #c8b070,
+    0 6px 0 #b89a50,
+    0 12px 40px rgba(80,50,10,0.35),
+    inset 0 0 0 1px rgba(200,180,120,0.3);
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  /* Red margin line */
+  background-image:
+    linear-gradient(90deg, transparent 59px, rgba(210,80,60,0.35) 59px, rgba(210,80,60,0.35) 61px, transparent 61px),
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 31px,
+      var(--rule) 31px,
+      var(--rule) 32px
+    );
+}
+
+/* ── HEADER ── */
+.nb-header {
+  background: linear-gradient(180deg, #f0e6c8 0%, #fdf6e3 100%);
+  border-bottom: 2px solid var(--cream-dark);
+  padding: 36px 32px 24px 80px;
+  text-align: left;
+  position: relative;
+}
+
+.header-deco {
+  position: absolute;
+  top: 18px; left: 72px;
+  font-size: 1rem;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+.nb-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.6rem;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.nb-subtitle {
+  font-size: 1.1rem;
+  color: var(--ink-light);
+  margin-top: 4px;
+}
+
+.stats {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: var(--ink-light);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dot { opacity: 0.4; }
+
+/* ── INPUT AREA ── */
+.input-area {
+  display: flex;
+  gap: 10px;
+  padding: 20px 24px 16px 72px;
+  border-bottom: 1px solid var(--rule);
+  align-items: center;
+}
+
+.input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cream);
+  border: 2px solid var(--cream-dark);
+  border-radius: 6px;
+  padding: 8px 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-wrapper:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(212,84,26,0.12);
+}
+
+.input-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+#task-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: 'Caveat', cursive;
+  font-size: 1.25rem;
+  color: var(--ink);
+  outline: none;
+}
+
+#task-input::placeholder { color: rgba(122,106,80,0.5); }
+
+#add-btn {
+  padding: 10px 20px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.1s, box-shadow 0.18s;
+  box-shadow: 0 3px 0 #a03510;
+  flex-shrink: 0;
+}
+
+#add-btn:hover { background: #bf4515; }
+#add-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #a03510; }
+
+/* ── FILTER TABS ── */
+.filters {
+  display: flex;
+  gap: 6px;
+  padding: 12px 24px 10px 72px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.filter-btn {
+  padding: 4px 14px;
+  border: 1.5px solid transparent;
+  border-radius: 20px;
+  background: transparent;
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-btn:hover { color: var(--ink); border-color: var(--cream-dark); }
+
+.filter-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  font-weight: 700;
+}
+
+/* ── TASK LIST ── */
+#task-list {
+  list-style: none;
+  padding: 8px 0;
+  min-height: 80px;
+}
+
+/* ── TASK ITEM ── */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px 10px 72px;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  transition: background 0.15s;
+  animation: slideIn 0.28s cubic-bezier(.22,1,.36,1) both;
+  position: relative;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.task-item:hover { background: rgba(212,84,26,0.04); }
+
+/* Custom checkbox */
+.task-check {
+  width: 22px; height: 22px;
+  border: 2.5px solid var(--cream-dark);
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  background: transparent;
+  color: transparent;
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+.task-item:hover .task-check {
+  border-color: var(--accent);
+}
+
+/* Task text */
+.task-text {
+  flex: 1;
+  font-size: 1.25rem;
+  color: var(--ink);
+  line-height: 1.4;
+  transition: color 0.2s;
+  word-break: break-word;
+}
+
+/* Delete button */
+.task-delete {
+  opacity: 0;
+  border: none;
+  background: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--ink-light);
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: opacity 0.15s, color 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+
+.task-item:hover .task-delete { opacity: 1; }
+.task-delete:hover { color: var(--accent); background: var(--accent-lt); }
+
+/* ── COMPLETED STATE ── */
+.task-item.done .task-check {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.task-item.done .task-text {
+  text-decoration: line-through;
+  text-decoration-color: var(--ink-light);
+  color: var(--ink-light);
+  opacity: 0.7;
+}
+
+.task-item.done {
+  background: rgba(58,125,68,0.03);
+}
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  color: var(--ink-light);
+  gap: 10px;
+}
+
+.empty-state.visible { display: flex; }
+
+.empty-icon { font-size: 2.5rem; opacity: 0.5; }
+
+.empty-state p {
+  font-size: 1.15rem;
+  opacity: 0.7;
+}
+
+/* ── FOOTER ── */
+.nb-footer {
+  padding: 14px 24px 20px 72px;
+  border-top: 1px solid var(--rule);
+}
+
+#clear-done-btn {
+  background: none;
+  border: 1.5px dashed var(--cream-dark);
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+#clear-done-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-lt);
+}
+
+/* ── SHAKE ANIMATION (empty submit) ── */
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-6px); }
+  40%     { transform: translateX(6px); }
+  60%     { transform: translateX(-4px); }
+  80%     { transform: translateX(4px); }
+}
+
+.shake { animation: shake 0.35s ease both; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 480px) {
+  .nb-header  { padding-left: 56px; }
+  .input-area { padding-left: 56px; }
+  .filters    { padding-left: 56px; }
+  .task-item  { padding-left: 56px; }
+  .nb-footer  { padding-left: 56px; }
+  .notebook   { background-position-x: 45px; }
+}
